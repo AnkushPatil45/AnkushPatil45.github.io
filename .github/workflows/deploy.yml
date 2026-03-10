@@ -12,8 +12,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: npm install
-      - run: npm run build
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+        env:
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+      - name: Build
+        run: npm run build
       - uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
